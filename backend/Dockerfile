@@ -3,13 +3,16 @@ FROM eclipse-temurin:17-jdk-alpine AS build
 
 WORKDIR /app
 
+# Install dos2unix for line ending conversion
+RUN apk add --no-cache dos2unix
+
 # Copy Maven wrapper and pom.xml
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 
-# Make mvnw executable
-RUN chmod +x mvnw
+# Fix line endings and make mvnw executable
+RUN dos2unix mvnw && chmod +x mvnw
 
 # Download dependencies (cached layer)
 RUN ./mvnw dependency:go-offline -B
