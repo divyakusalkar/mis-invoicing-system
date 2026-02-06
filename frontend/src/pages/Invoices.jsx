@@ -107,56 +107,56 @@ const Invoices = () => {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white">Invoices</h1>
-                    <p className="text-gray-400 mt-1">Manage invoices and track payments</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white">Invoices</h1>
+                    <p className="text-sm sm:text-base text-gray-400 mt-1">Manage invoices and track payments</p>
                 </div>
-                <Button onClick={openModal}>
+                <Button onClick={openModal} className="w-full sm:w-auto justify-center">
                     <HiOutlinePlus className="w-5 h-5" />
                     New Invoice
                 </Button>
             </div>
 
             {/* Table */}
-            <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50 overflow-hidden">
+            <div className="bg-gray-800/50 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-gray-700/50 overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full">
+                    <table className="w-full min-w-[700px]">
                         <thead>
                             <tr className="border-b border-gray-700/50">
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Invoice #</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Client</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Subtotal</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">GST</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Total</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Status</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Due Date</th>
-                                <th className="px-6 py-4 text-right text-sm font-semibold text-gray-400">Actions</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Invoice #</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Client</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden md:table-cell">Subtotal</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden lg:table-cell">GST</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Total</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Status</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden sm:table-cell">Due Date</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-400">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-700/50">
                             {invoices.map((invoice) => (
                                 <tr key={invoice.id} className="hover:bg-gray-700/30 transition-colors">
-                                    <td className="px-6 py-4 text-white font-medium">{invoice.invoiceNumber}</td>
-                                    <td className="px-6 py-4 text-gray-300">{invoice.client?.name || '-'}</td>
-                                    <td className="px-6 py-4 text-gray-300">{formatCurrency(invoice.subtotal)}</td>
-                                    <td className="px-6 py-4 text-gray-300">
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-white font-medium text-sm">{invoice.invoiceNumber}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm">{invoice.client?.name || '-'}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm hidden md:table-cell">{formatCurrency(invoice.subtotal)}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm hidden lg:table-cell">
                                         {invoice.igst > 0
                                             ? `IGST: ${formatCurrency(invoice.igst)}`
                                             : `CGST+SGST: ${formatCurrency((invoice.cgst || 0) + (invoice.sgst || 0))}`
                                         }
                                     </td>
-                                    <td className="px-6 py-4 text-white font-semibold">{formatCurrency(invoice.total)}</td>
-                                    <td className="px-6 py-4">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[invoice.status]}`}>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-white font-semibold text-sm">{formatCurrency(invoice.total)}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4">
+                                        <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${statusColors[invoice.status]}`}>
                                             {invoice.status}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 text-gray-300">{formatDate(invoice.dueDate)}</td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center justify-end gap-2">
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm hidden sm:table-cell">{formatDate(invoice.dueDate)}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4">
+                                        <div className="flex items-center justify-end gap-1 sm:gap-2">
                                             <button
                                                 onClick={() => setViewingInvoice(invoice)}
                                                 className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors"
@@ -175,7 +175,7 @@ const Invoices = () => {
                             ))}
                             {invoices.length === 0 && (
                                 <tr>
-                                    <td colSpan={8} className="px-6 py-12 text-center text-gray-400">
+                                    <td colSpan={8} className="px-3 sm:px-6 py-8 sm:py-12 text-center text-gray-400 text-sm sm:text-base">
                                         No invoices found. Click "New Invoice" to create one.
                                     </td>
                                 </tr>
@@ -220,7 +220,7 @@ const Invoices = () => {
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">Subtotal (₹) *</label>
                             <input
@@ -243,24 +243,24 @@ const Invoices = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-start sm:items-center gap-3">
                         <input
                             type="checkbox"
                             id="isInterState"
                             checked={formData.isInterState}
                             onChange={(e) => setFormData({ ...formData, isInterState: e.target.checked })}
-                            className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-indigo-500 focus:ring-indigo-500/50"
+                            className="w-4 h-4 mt-0.5 sm:mt-0 rounded border-gray-600 bg-gray-700 text-indigo-500 focus:ring-indigo-500/50"
                         />
                         <label htmlFor="isInterState" className="text-gray-300 text-sm">
                             Inter-State Transaction (IGST instead of CGST+SGST)
                         </label>
                     </div>
 
-                    <div className="flex justify-end gap-3 pt-4 border-t border-gray-700/50">
-                        <Button type="button" variant="ghost" onClick={closeModal}>
+                    <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4 border-t border-gray-700/50">
+                        <Button type="button" variant="ghost" onClick={closeModal} className="w-full sm:w-auto justify-center">
                             Cancel
                         </Button>
-                        <Button type="submit">
+                        <Button type="submit" className="w-full sm:w-auto justify-center">
                             Create Invoice
                         </Button>
                     </div>
@@ -274,8 +274,8 @@ const Invoices = () => {
                 title={`Invoice ${viewingInvoice?.invoiceNumber}`}
             >
                 {viewingInvoice && (
-                    <div className="space-y-6">
-                        <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-4 sm:space-y-6">
+                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
                             <div>
                                 <p className="text-gray-400 text-sm">Client</p>
                                 <p className="text-white font-medium">{viewingInvoice.client?.name}</p>
@@ -324,7 +324,7 @@ const Invoices = () => {
                         </div>
 
                         <div className="flex justify-end pt-4 border-t border-gray-700/50">
-                            <Button variant="ghost" onClick={() => setViewingInvoice(null)}>
+                            <Button variant="ghost" onClick={() => setViewingInvoice(null)} className="w-full sm:w-auto justify-center">
                                 Close
                             </Button>
                         </div>

@@ -100,53 +100,53 @@ const Payments = () => {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white">Payments</h1>
-                    <p className="text-gray-400 mt-1">Record and track payment transactions</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white">Payments</h1>
+                    <p className="text-sm sm:text-base text-gray-400 mt-1">Record and track payment transactions</p>
                 </div>
-                <Button onClick={openModal} disabled={invoices.length === 0}>
+                <Button onClick={openModal} disabled={invoices.length === 0} className="w-full sm:w-auto justify-center">
                     <HiOutlinePlus className="w-5 h-5" />
                     Record Payment
                 </Button>
             </div>
 
             {invoices.length === 0 && (
-                <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
-                    <p className="text-emerald-400">All invoices are paid! No pending payments.</p>
+                <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 sm:p-4">
+                    <p className="text-emerald-400 text-sm sm:text-base">All invoices are paid! No pending payments.</p>
                 </div>
             )}
 
             {/* Table */}
-            <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50 overflow-hidden">
+            <div className="bg-gray-800/50 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-gray-700/50 overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full">
+                    <table className="w-full min-w-[500px]">
                         <thead>
                             <tr className="border-b border-gray-700/50">
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Invoice #</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Amount</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Payment Mode</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Transaction Ref</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Date & Time</th>
-                                <th className="px-6 py-4 text-right text-sm font-semibold text-gray-400">Actions</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Invoice #</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Amount</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Payment Mode</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden md:table-cell">Transaction Ref</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden sm:table-cell">Date & Time</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-400">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-700/50">
                             {payments.map((payment) => (
                                 <tr key={payment.id} className="hover:bg-gray-700/30 transition-colors">
-                                    <td className="px-6 py-4 text-white font-medium">{payment.invoice?.invoiceNumber || '-'}</td>
-                                    <td className="px-6 py-4 text-emerald-400 font-semibold">{formatCurrency(payment.amount)}</td>
-                                    <td className="px-6 py-4">
-                                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-400">
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-white font-medium text-sm">{payment.invoice?.invoiceNumber || '-'}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-emerald-400 font-semibold text-sm">{formatCurrency(payment.amount)}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4">
+                                        <span className="px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-400">
                                             {payment.paymentMode}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 text-gray-300">{payment.transactionRef || '-'}</td>
-                                    <td className="px-6 py-4 text-gray-300">{formatDateTime(payment.paymentDate)}</td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center justify-end gap-2">
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm hidden md:table-cell">{payment.transactionRef || '-'}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm hidden sm:table-cell">{formatDateTime(payment.paymentDate)}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4">
+                                        <div className="flex items-center justify-end gap-1 sm:gap-2">
                                             <button
                                                 onClick={() => handleDelete(payment.id)}
                                                 className="p-2 rounded-lg hover:bg-red-500/20 text-gray-400 hover:text-red-400 transition-colors"
@@ -159,7 +159,7 @@ const Payments = () => {
                             ))}
                             {payments.length === 0 && (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
+                                    <td colSpan={6} className="px-3 sm:px-6 py-8 sm:py-12 text-center text-gray-400 text-sm sm:text-base">
                                         No payments recorded yet.
                                     </td>
                                 </tr>
@@ -175,7 +175,7 @@ const Payments = () => {
                 onClose={closeModal}
                 title="Record Payment"
             >
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-300 mb-2">Invoice *</label>
                         <select
@@ -193,7 +193,7 @@ const Payments = () => {
                         </select>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">Amount (₹) *</label>
                             <input
@@ -232,11 +232,11 @@ const Payments = () => {
                         />
                     </div>
 
-                    <div className="flex justify-end gap-3 pt-4 border-t border-gray-700/50">
-                        <Button type="button" variant="ghost" onClick={closeModal}>
+                    <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4 border-t border-gray-700/50">
+                        <Button type="button" variant="ghost" onClick={closeModal} className="w-full sm:w-auto justify-center">
                             Cancel
                         </Button>
-                        <Button type="submit" variant="success">
+                        <Button type="submit" variant="success" className="w-full sm:w-auto justify-center">
                             Record Payment
                         </Button>
                     </div>

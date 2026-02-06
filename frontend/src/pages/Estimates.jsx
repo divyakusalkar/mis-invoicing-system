@@ -128,49 +128,49 @@ const Estimates = () => {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white">Estimates</h1>
-                    <p className="text-gray-400 mt-1">Create and manage sales estimates</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white">Estimates</h1>
+                    <p className="text-sm sm:text-base text-gray-400 mt-1">Create and manage sales estimates</p>
                 </div>
-                <Button onClick={() => openModal()}>
+                <Button onClick={() => openModal()} className="w-full sm:w-auto justify-center">
                     <HiOutlinePlus className="w-5 h-5" />
                     New Estimate
                 </Button>
             </div>
 
             {/* Table */}
-            <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50 overflow-hidden">
+            <div className="bg-gray-800/50 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-gray-700/50 overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full">
+                    <table className="w-full min-w-[600px]">
                         <thead>
                             <tr className="border-b border-gray-700/50">
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Estimate #</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Client</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Subtotal</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">GST</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Total</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Status</th>
-                                <th className="px-6 py-4 text-right text-sm font-semibold text-gray-400">Actions</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Estimate #</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Client</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden md:table-cell">Subtotal</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden lg:table-cell">GST</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Total</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Status</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-400">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-700/50">
                             {estimates.map((estimate) => (
                                 <tr key={estimate.id} className="hover:bg-gray-700/30 transition-colors">
-                                    <td className="px-6 py-4 text-white font-medium">{estimate.estimateNumber}</td>
-                                    <td className="px-6 py-4 text-gray-300">{estimate.client?.name || '-'}</td>
-                                    <td className="px-6 py-4 text-gray-300">{formatCurrency(estimate.subtotal)}</td>
-                                    <td className="px-6 py-4 text-gray-300">{formatCurrency(estimate.gstAmount)}</td>
-                                    <td className="px-6 py-4 text-white font-semibold">{formatCurrency(estimate.total)}</td>
-                                    <td className="px-6 py-4">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[estimate.status]}`}>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-white font-medium text-sm">{estimate.estimateNumber}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm">{estimate.client?.name || '-'}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm hidden md:table-cell">{formatCurrency(estimate.subtotal)}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm hidden lg:table-cell">{formatCurrency(estimate.gstAmount)}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-white font-semibold text-sm">{formatCurrency(estimate.total)}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4">
+                                        <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${statusColors[estimate.status]}`}>
                                             {estimate.status}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center justify-end gap-2">
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4">
+                                        <div className="flex items-center justify-end gap-1 sm:gap-2">
                                             {estimate.status === 'APPROVED' && (
                                                 <button
                                                     onClick={() => handleConvert(estimate.id)}
@@ -198,7 +198,7 @@ const Estimates = () => {
                             ))}
                             {estimates.length === 0 && (
                                 <tr>
-                                    <td colSpan={7} className="px-6 py-12 text-center text-gray-400">
+                                    <td colSpan={7} className="px-3 sm:px-6 py-8 sm:py-12 text-center text-gray-400 text-sm sm:text-base">
                                         No estimates found. Click "New Estimate" to create one.
                                     </td>
                                 </tr>
@@ -214,7 +214,7 @@ const Estimates = () => {
                 onClose={closeModal}
                 title={editingEstimate ? 'Edit Estimate' : 'New Estimate'}
             >
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                     {!editingEstimate && (
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">Client *</label>
@@ -245,7 +245,7 @@ const Estimates = () => {
                         />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">Subtotal (₹) *</label>
                             <input
@@ -271,15 +271,15 @@ const Estimates = () => {
                         </div>
                     </div>
 
-                    <div className="bg-gray-700/30 rounded-xl p-4">
-                        <p className="text-gray-400 text-sm">GST (18%) will be calculated automatically on save.</p>
+                    <div className="bg-gray-700/30 rounded-xl p-3 sm:p-4">
+                        <p className="text-gray-400 text-xs sm:text-sm">GST (18%) will be calculated automatically on save.</p>
                     </div>
 
-                    <div className="flex justify-end gap-3 pt-4 border-t border-gray-700/50">
-                        <Button type="button" variant="ghost" onClick={closeModal}>
+                    <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4 border-t border-gray-700/50">
+                        <Button type="button" variant="ghost" onClick={closeModal} className="w-full sm:w-auto justify-center">
                             Cancel
                         </Button>
-                        <Button type="submit">
+                        <Button type="submit" className="w-full sm:w-auto justify-center">
                             {editingEstimate ? 'Update Estimate' : 'Create Estimate'}
                         </Button>
                     </div>

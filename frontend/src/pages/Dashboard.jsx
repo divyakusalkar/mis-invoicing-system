@@ -47,15 +47,15 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-4 sm:space-y-6 lg:space-y-8">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-                <p className="text-gray-400 mt-1">Welcome back! Here's an overview of your business.</p>
+                <h1 className="text-2xl sm:text-3xl font-bold text-white">Dashboard</h1>
+                <p className="text-sm sm:text-base text-gray-400 mt-1">Welcome back! Here's an overview of your business.</p>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                 <StatCard
                     title="Total Clients"
                     value={stats.totalClients}
@@ -83,9 +83,9 @@ const Dashboard = () => {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 {/* Invoice Summary */}
-                <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50 p-6">
+                <div className="bg-gray-800/50 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-gray-700/50 p-4 sm:p-6">
                     <h3 className="text-lg font-semibold text-white mb-4">Invoice Summary</h3>
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">
@@ -108,7 +108,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Payment Summary */}
-                <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50 p-6">
+                <div className="bg-gray-800/50 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-gray-700/50 p-4 sm:p-6">
                     <h3 className="text-lg font-semibold text-white mb-4">Payment Summary</h3>
                     <div className="space-y-4">
                         <div className="flex items-center justify-between">

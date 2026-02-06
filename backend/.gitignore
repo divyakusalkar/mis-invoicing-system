@@ -1,7 +1,9 @@
-.mvn/
 target/
 *.class
 *.jar
+!.mvn/wrapper/maven-wrapper.jar
 *.log
 .idea/
 *.iml
+.env
+.env.local

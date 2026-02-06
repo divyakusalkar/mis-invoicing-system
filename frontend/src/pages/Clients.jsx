@@ -106,14 +106,14 @@ const Clients = () => {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white">Clients</h1>
-                    <p className="text-gray-400 mt-1">Manage your client database</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-white">Clients</h1>
+                    <p className="text-sm sm:text-base text-gray-400 mt-1">Manage your client database</p>
                 </div>
-                <Button onClick={() => openModal()}>
+                <Button onClick={() => openModal()} className="w-full sm:w-auto justify-center">
                     <HiOutlinePlus className="w-5 h-5" />
                     Add Client
                 </Button>
@@ -121,44 +121,44 @@ const Clients = () => {
 
             {/* Search */}
             <div className="relative">
-                <HiOutlineSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <HiOutlineSearch className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                     type="text"
                     placeholder="Search clients..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50"
+                    className="w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 text-sm sm:text-base"
                 />
             </div>
 
             {/* Table */}
-            <div className="bg-gray-800/50 backdrop-blur-xl rounded-2xl border border-gray-700/50 overflow-hidden">
+            <div className="bg-gray-800/50 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-gray-700/50 overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full">
+                    <table className="w-full min-w-[600px]">
                         <thead>
                             <tr className="border-b border-gray-700/50">
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Name</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Email</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Phone</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">Category</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-400">GST Number</th>
-                                <th className="px-6 py-4 text-right text-sm font-semibold text-gray-400">Actions</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Name</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden sm:table-cell">Email</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Phone</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden md:table-cell">Category</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400 hidden lg:table-cell">GST Number</th>
+                                <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs sm:text-sm font-semibold text-gray-400">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-700/50">
                             {filteredClients.map((client) => (
                                 <tr key={client.id} className="hover:bg-gray-700/30 transition-colors">
-                                    <td className="px-6 py-4 text-white font-medium">{client.name}</td>
-                                    <td className="px-6 py-4 text-gray-300">{client.email || '-'}</td>
-                                    <td className="px-6 py-4 text-gray-300">{client.phone || '-'}</td>
-                                    <td className="px-6 py-4">
-                                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-400 capitalize">
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-white font-medium text-sm sm:text-base">{client.name}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm hidden sm:table-cell">{client.email || '-'}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm">{client.phone || '-'}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 hidden md:table-cell">
+                                        <span className="px-2 sm:px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/20 text-indigo-400 capitalize">
                                             {client.category}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4 text-gray-300">{client.gstNumber || '-'}</td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center justify-end gap-2">
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-gray-300 text-sm hidden lg:table-cell">{client.gstNumber || '-'}</td>
+                                    <td className="px-3 sm:px-6 py-3 sm:py-4">
+                                        <div className="flex items-center justify-end gap-1 sm:gap-2">
                                             <button
                                                 onClick={() => openModal(client)}
                                                 className="p-2 rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-colors"
@@ -177,7 +177,7 @@ const Clients = () => {
                             ))}
                             {filteredClients.length === 0 && (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
+                                    <td colSpan={6} className="px-3 sm:px-6 py-8 sm:py-12 text-center text-gray-400 text-sm sm:text-base">
                                         No clients found. Click "Add Client" to create one.
                                     </td>
                                 </tr>
@@ -193,8 +193,8 @@ const Clients = () => {
                 onClose={closeModal}
                 title={editingClient ? 'Edit Client' : 'Add New Client'}
             >
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                             <label className="block text-sm font-medium text-gray-300 mb-2">Name *</label>
                             <input
@@ -246,7 +246,7 @@ const Clients = () => {
                                 className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
                             />
                         </div>
-                        <div className="md:col-span-2">
+                        <div className="sm:col-span-2">
                             <label className="block text-sm font-medium text-gray-300 mb-2">Address</label>
                             <textarea
                                 rows={3}
@@ -257,11 +257,11 @@ const Clients = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-end gap-3 pt-4 border-t border-gray-700/50">
-                        <Button type="button" variant="ghost" onClick={closeModal}>
+                    <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4 border-t border-gray-700/50">
+                        <Button type="button" variant="ghost" onClick={closeModal} className="w-full sm:w-auto justify-center">
                             Cancel
                         </Button>
-                        <Button type="submit">
+                        <Button type="submit" className="w-full sm:w-auto justify-center">
                             {editingClient ? 'Update Client' : 'Add Client'}
                         </Button>
                     </div>

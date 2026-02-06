@@ -1,1 +1,60 @@
 @import "tailwindcss";
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
+
+/* Mobile table responsiveness - hide columns on small screens */
+@media (max-width: 640px) {
+    .table-responsive th:nth-child(n+4),
+    .table-responsive td:nth-child(n+4) {
+        display: none;
+    }
+    
+    .table-responsive th,
+    .table-responsive td {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+}
+
+/* Touch-friendly tap targets */
+@media (max-width: 1024px) {
+    button, a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Prevent horizontal scroll on mobile */
+html, body {
+    overflow-x: hidden;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Better focus states for accessibility */
+*:focus-visible {
+    outline: 2px solid #818cf8;
+    outline-offset: 2px;
+}

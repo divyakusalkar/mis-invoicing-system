@@ -124,4 +124,4 @@ This project is created as part of an internship capstone project.
 
 ## 👨‍💻 Author
 
-**Ganesh** - Full Stack Developer
+**Divya** - Student
