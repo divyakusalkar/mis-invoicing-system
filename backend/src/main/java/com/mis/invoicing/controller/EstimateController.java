@@ -6,6 +6,7 @@ import com.mis.invoicing.service.EstimateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class EstimateController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Estimate> getEstimateById(@PathVariable Long id) {
+    public ResponseEntity<Estimate> getEstimateById(@PathVariable @NonNull Long id) {
         return estimateService.getEstimateById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -35,7 +36,7 @@ public class EstimateController {
     
     @PostMapping
     public ResponseEntity<Estimate> createEstimate(
-            @RequestParam Long clientId,
+            @RequestParam @NonNull Long clientId,
             @RequestBody Estimate estimate) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(estimateService.createEstimate(clientId, estimate));
@@ -43,19 +44,19 @@ public class EstimateController {
     
     @PutMapping("/{id}")
     public ResponseEntity<Estimate> updateEstimate(
-            @PathVariable Long id,
+            @PathVariable @NonNull Long id,
             @RequestBody Estimate estimate) {
         return ResponseEntity.ok(estimateService.updateEstimate(id, estimate));
     }
     
     @PostMapping("/{id}/convert")
-    public ResponseEntity<Invoice> convertToInvoice(@PathVariable Long id) {
+    public ResponseEntity<Invoice> convertToInvoice(@PathVariable @NonNull Long id) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(estimateService.convertToInvoice(id));
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEstimate(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEstimate(@PathVariable @NonNull Long id) {
         estimateService.deleteEstimate(id);
         return ResponseEntity.noContent().build();
     }

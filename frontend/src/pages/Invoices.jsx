@@ -123,7 +123,7 @@ const Invoices = () => {
             {/* Table */}
             <div className="bg-gray-800/50 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-gray-700/50 overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full min-w-[700px]">
+                    <table className="w-full min-w-175">
                         <thead>
                             <tr className="border-b border-gray-700/50">
                                 <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-400">Invoice #</th>

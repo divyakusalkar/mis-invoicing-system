@@ -3,6 +3,7 @@ package com.mis.invoicing.service;
 import com.mis.invoicing.model.Client;
 import com.mis.invoicing.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ public class ClientService {
         return clientRepository.findAll();
     }
     
-    public Optional<Client> getClientById(Long id) {
+    public Optional<Client> getClientById(@NonNull Long id) {
         return clientRepository.findById(id);
     }
     
@@ -28,11 +29,11 @@ public class ClientService {
         return clientRepository.findByNameContainingIgnoreCase(name);
     }
     
-    public Client createClient(Client client) {
+    public Client createClient(@NonNull Client client) {
         return clientRepository.save(client);
     }
     
-    public Client updateClient(Long id, Client clientDetails) {
+    public Client updateClient(@NonNull Long id, Client clientDetails) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Client not found with id: " + id));
         
@@ -46,7 +47,7 @@ public class ClientService {
         return clientRepository.save(client);
     }
     
-    public void deleteClient(Long id) {
+    public void deleteClient(@NonNull Long id) {
         clientRepository.deleteById(id);
     }
 }

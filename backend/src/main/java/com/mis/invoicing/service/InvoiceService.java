@@ -6,6 +6,7 @@ import com.mis.invoicing.repository.ClientRepository;
 import com.mis.invoicing.repository.InvoiceRepository;
 import com.mis.invoicing.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,7 +26,7 @@ public class InvoiceService {
         return invoiceRepository.findAll();
     }
     
-    public Optional<Invoice> getInvoiceById(Long id) {
+    public Optional<Invoice> getInvoiceById(@NonNull Long id) {
         return invoiceRepository.findById(id);
     }
     
@@ -37,7 +38,7 @@ public class InvoiceService {
         return invoiceRepository.findByStatus(status);
     }
     
-    public Invoice createInvoice(Long clientId, Invoice invoice, boolean isInterState) {
+    public Invoice createInvoice(@NonNull Long clientId, Invoice invoice, boolean isInterState) {
         Client client = clientRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Client not found with id: " + clientId));
         
@@ -46,7 +47,7 @@ public class InvoiceService {
         return invoiceRepository.save(invoice);
     }
     
-    public Invoice updateInvoice(Long id, Invoice invoiceDetails, boolean isInterState) {
+    public Invoice updateInvoice(@NonNull Long id, Invoice invoiceDetails, boolean isInterState) {
         Invoice invoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invoice not found with id: " + id));
         
@@ -58,7 +59,7 @@ public class InvoiceService {
         return invoiceRepository.save(invoice);
     }
     
-    public void updateInvoiceStatus(Long id) {
+    public void updateInvoiceStatus(@NonNull Long id) {
         Invoice invoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Invoice not found with id: " + id));
         
@@ -69,7 +70,7 @@ public class InvoiceService {
         }
     }
     
-    public void deleteInvoice(Long id) {
+    public void deleteInvoice(@NonNull Long id) {
         invoiceRepository.deleteById(id);
     }
     

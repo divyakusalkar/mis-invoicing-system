@@ -5,6 +5,7 @@ import com.mis.invoicing.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,27 +22,27 @@ public class PaymentController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Payment> getPaymentById(@PathVariable Long id) {
+    public ResponseEntity<Payment> getPaymentById(@PathVariable @NonNull Long id) {
         return paymentService.getPaymentById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
     
     @GetMapping("/invoice/{invoiceId}")
-    public ResponseEntity<List<Payment>> getPaymentsByInvoiceId(@PathVariable Long invoiceId) {
+    public ResponseEntity<List<Payment>> getPaymentsByInvoiceId(@PathVariable @NonNull Long invoiceId) {
         return ResponseEntity.ok(paymentService.getPaymentsByInvoiceId(invoiceId));
     }
     
     @PostMapping
     public ResponseEntity<Payment> recordPayment(
-            @RequestParam Long invoiceId,
+            @RequestParam @NonNull Long invoiceId,
             @RequestBody Payment payment) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(paymentService.recordPayment(invoiceId, payment));
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePayment(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePayment(@PathVariable @NonNull Long id) {
         paymentService.deletePayment(id);
         return ResponseEntity.noContent().build();
     }

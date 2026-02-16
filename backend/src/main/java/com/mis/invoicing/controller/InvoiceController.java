@@ -5,6 +5,7 @@ import com.mis.invoicing.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class InvoiceController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Invoice> getInvoiceById(@PathVariable Long id) {
+    public ResponseEntity<Invoice> getInvoiceById(@PathVariable @NonNull Long id) {
         return invoiceService.getInvoiceById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -39,7 +40,7 @@ public class InvoiceController {
     
     @PostMapping
     public ResponseEntity<Invoice> createInvoice(
-            @RequestParam Long clientId,
+            @RequestParam @NonNull Long clientId,
             @RequestParam(defaultValue = "false") boolean isInterState,
             @RequestBody Invoice invoice) {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -48,14 +49,14 @@ public class InvoiceController {
     
     @PutMapping("/{id}")
     public ResponseEntity<Invoice> updateInvoice(
-            @PathVariable Long id,
+            @PathVariable @NonNull Long id,
             @RequestParam(defaultValue = "false") boolean isInterState,
             @RequestBody Invoice invoice) {
         return ResponseEntity.ok(invoiceService.updateInvoice(id, invoice, isInterState));
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteInvoice(@PathVariable @NonNull Long id) {
         invoiceService.deleteInvoice(id);
         return ResponseEntity.noContent().build();
     }

@@ -5,6 +5,7 @@ import com.mis.invoicing.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class ClientController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable Long id) {
+    public ResponseEntity<Client> getClientById(@PathVariable @NonNull Long id) {
         return clientService.getClientById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -38,18 +39,18 @@ public class ClientController {
     }
     
     @PostMapping
-    public ResponseEntity<Client> createClient(@RequestBody Client client) {
+    public ResponseEntity<Client> createClient(@RequestBody @NonNull Client client) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(clientService.createClient(client));
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client client) {
+    public ResponseEntity<Client> updateClient(@PathVariable @NonNull Long id, @RequestBody Client client) {
         return ResponseEntity.ok(clientService.updateClient(id, client));
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteClient(@PathVariable @NonNull Long id) {
         clientService.deleteClient(id);
         return ResponseEntity.noContent().build();
     }

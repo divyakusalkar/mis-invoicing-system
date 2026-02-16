@@ -7,6 +7,7 @@ import com.mis.invoicing.repository.ClientRepository;
 import com.mis.invoicing.repository.EstimateRepository;
 import com.mis.invoicing.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -26,7 +27,7 @@ public class EstimateService {
         return estimateRepository.findAll();
     }
     
-    public Optional<Estimate> getEstimateById(Long id) {
+    public Optional<Estimate> getEstimateById(@NonNull Long id) {
         return estimateRepository.findById(id);
     }
     
@@ -34,7 +35,7 @@ public class EstimateService {
         return estimateRepository.findByClientId(clientId);
     }
     
-    public Estimate createEstimate(Long clientId, Estimate estimate) {
+    public Estimate createEstimate(@NonNull Long clientId, Estimate estimate) {
         Client client = clientRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Client not found with id: " + clientId));
         
@@ -43,7 +44,7 @@ public class EstimateService {
         return estimateRepository.save(estimate);
     }
     
-    public Estimate updateEstimate(Long id, Estimate estimateDetails) {
+    public Estimate updateEstimate(@NonNull Long id, Estimate estimateDetails) {
         Estimate estimate = estimateRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Estimate not found with id: " + id));
         
@@ -55,7 +56,7 @@ public class EstimateService {
         return estimateRepository.save(estimate);
     }
     
-    public Invoice convertToInvoice(Long estimateId) {
+    public Invoice convertToInvoice(@NonNull Long estimateId) {
         Estimate estimate = estimateRepository.findById(estimateId)
                 .orElseThrow(() -> new RuntimeException("Estimate not found with id: " + estimateId));
         
@@ -82,7 +83,7 @@ public class EstimateService {
         return invoiceRepository.save(invoice);
     }
     
-    public void deleteEstimate(Long id) {
+    public void deleteEstimate(@NonNull Long id) {
         estimateRepository.deleteById(id);
     }
     

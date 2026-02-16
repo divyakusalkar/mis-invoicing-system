@@ -5,6 +5,7 @@ import com.mis.invoicing.model.Payment;
 import com.mis.invoicing.repository.InvoiceRepository;
 import com.mis.invoicing.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,15 +21,15 @@ public class PaymentService {
         return paymentRepository.findAll();
     }
     
-    public Optional<Payment> getPaymentById(Long id) {
+    public Optional<Payment> getPaymentById(@NonNull Long id) {
         return paymentRepository.findById(id);
     }
     
-    public List<Payment> getPaymentsByInvoiceId(Long invoiceId) {
+    public List<Payment> getPaymentsByInvoiceId(@NonNull Long invoiceId) {
         return paymentRepository.findByInvoiceId(invoiceId);
     }
     
-    public Payment recordPayment(Long invoiceId, Payment payment) {
+    public Payment recordPayment(@NonNull Long invoiceId, Payment payment) {
         Invoice invoice = invoiceRepository.findById(invoiceId)
                 .orElseThrow(() -> new RuntimeException("Invoice not found with id: " + invoiceId));
         
@@ -41,10 +42,10 @@ public class PaymentService {
         return savedPayment;
     }
     
-    public void deletePayment(Long id) {
+    public void deletePayment(@NonNull Long id) {
         Payment payment = paymentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Payment not found with id: " + id));
-        Long invoiceId = payment.getInvoice().getId();
+        Long invoiceId = java.util.Objects.requireNonNull(payment.getInvoice().getId());
         
         paymentRepository.deleteById(id);
         
@@ -52,7 +53,7 @@ public class PaymentService {
         updateInvoiceStatus(invoiceId);
     }
     
-    private void updateInvoiceStatus(Long invoiceId) {
+    private void updateInvoiceStatus(@NonNull Long invoiceId) {
         Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow();
         BigDecimal totalPayments = paymentRepository.getTotalPaymentsByInvoiceId(invoiceId);
         
